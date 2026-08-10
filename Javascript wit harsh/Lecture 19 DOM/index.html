@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DOM Manipulation Practice</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #333;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #222;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .box {
+            padding: 25px;
+            margin: 15px 0;
+            background: lightblue;
+            border-radius: 10px;
+        }
+
+        .highlight {
+            background: yellow;
+        }
+
+        .dark {
+            background: #222;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        #counter {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        #output {
+            padding: 15px;
+            margin-top: 15px;
+            background: #eee;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header id="header">
+
+        <h1 id="mainTitle">
+            JavaScript DOM Manipulation
+        </h1>
+
+        <p id="subtitle">
+            Complete DOM Practice Website
+        </p>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav id="navbar">
+
+        <a href="#" class="nav-link">Home</a>
+
+        <a href="#" class="nav-link">About</a>
+
+        <a href="#" class="nav-link">Projects</a>
+
+        <a href="#" class="nav-link">Contact</a>
+
+    </nav>
+
+
+    <main>
+
+        <!-- ================================= -->
+        <!-- SECTION 1 : BASIC DOM -->
+        <!-- ================================= -->
+
+        <section id="basicDom">
+
+            <h2>1. Basic DOM Manipulation</h2>
+
+            <h3 id="heading">
+                Original Heading
+            </h3>
+
+            <p id="paragraph">
+                This is the original paragraph.
+            </p>
+
+            <div id="box" class="box">
+                This is a box.
+            </div>
+
+            <button id="changeHeading">
+                Change Heading
+            </button>
+
+            <button id="changeParagraph">
+                Change Paragraph
+            </button>
+
+            <button id="changeBox">
+                Change Box
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 2 : STYLE MANIPULATION -->
+        <!-- ================================= -->
+
+        <section id="styleSection">
+
+            <h2>2. Style Manipulation</h2>
+
+            <div id="styleBox" class="box">
+
+                <h3>Style Manipulation Box</h3>
+
+                <p>
+                    Change my background, color, size and border.
+                </p>
+
+            </div>
+
+            <button id="bgButton">
+                Change Background
+            </button>
+
+            <button id="colorButton">
+                Change Text Color
+            </button>
+
+            <button id="sizeButton">
+                Change Font Size
+            </button>
+
+            <button id="borderButton">
+                Change Border
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 3 : CLASSLIST -->
+        <!-- ================================= -->
+
+        <section id="classSection">
+
+            <h2>3. ClassList Manipulation</h2>
+
+            <div id="classBox" class="box">
+
+                <h3>ClassList Practice</h3>
+
+                <p>
+                    Use JavaScript to add and remove classes.
+                </p>
+
+            </div>
+
+            <button id="addClass">
+                Add Highlight
+            </button>
+
+            <button id="removeClass">
+                Remove Highlight
+            </button>
+
+            <button id="toggleClass">
+                Toggle Highlight
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 4 : INPUT -->
+        <!-- ================================= -->
+
+        <section id="inputSection">
+
+            <h2>4. Input Manipulation</h2>
+
+            <label>
+                Enter your name:
+            </label>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+            >
+
+            <button id="showName">
+                Show Name
+            </button>
+
+            <div id="output">
+                Your name will appear here.
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 5 : FORM -->
+        <!-- ================================= -->
+
+        <section id="formSection">
+
+            <h2>5. Form DOM Manipulation</h2>
+
+            <form id="userForm">
+
+                <label>
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="userName"
+                    placeholder="Enter name"
+                >
+
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="userEmail"
+                    placeholder="Enter email"
+                >
+
+
+                <label>
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="userAge"
+                    placeholder="Enter age"
+                >
+
+
+                <label>
+                    Gender
+                </label>
+
+                <select id="gender">
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                </select>
+
+
+                <button type="submit">
+                    Submit
+                </button>
+
+            </form>
+
+            <div id="formOutput"></div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 6 : LIST -->
+        <!-- ================================= -->
+
+        <section id="listSection">
+
+            <h2>6. List Manipulation</h2>
+
+            <input
+                type="text"
+                id="itemInput"
+                placeholder="Enter item"
+            >
+
+            <button id="addItem">
+                Add Item
+            </button>
+
+            <button id="removeLastItem">
+                Remove Last
+            </button>
+
+            <button id="clearList">
+                Clear List
+            </button>
+
+
+            <ul id="itemList">
+
+                <li>HTML</li>
+
+                <li>CSS</li>
+
+                <li>JavaScript</li>
+
+                <li>React</li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 7 : TODO LIST -->
+        <!-- ================================= -->
+
+        <section id="todoSection">
+
+            <h2>7. Todo List</h2>
+
+            <input
+                type="text"
+                id="todoInput"
+                placeholder="Enter todo"
+            >
+
+            <button id="addTodo">
+                Add Todo
+            </button>
+
+
+            <ul id="todoList">
+
+                <li>
+                    Learn JavaScript
+                </li>
+
+                <li>
+                    Practice DOM
+                </li>
+
+                <li>
+                    Build Project
+                </li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 8 : COUNTER -->
+        <!-- ================================= -->
+
+        <section id="counterSection">
+
+            <h2>8. Counter</h2>
+
+            <div id="counter">
+                0
+            </div>
+
+            <button id="increase">
+                +
+            </button>
+
+            <button id="decrease">
+                -
+            </button>
+
+            <button id="reset">
+                Reset
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 9 : CARDS -->
+        <!-- ================================= -->
+
+        <section id="cardSection">
+
+            <h2>9. Card Manipulation</h2>
+
+            <div
+                id="cardContainer"
+                class="card-container"
+            >
+
+                <div class="card">
+
+                    <h3>Card 1</h3>
+
+                    <p>
+                        JavaScript
+                    </p>
+
+                    <button>
+                        Delete
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Card 2</h3>
+
+                    <p>
+                        HTML
+                    </p>
+
+                    <button>
+                        Delete
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Card 3</h3>
+
+                    <p>
+                        CSS
+                    </p>
+
+                    <button>
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button id="addCard">
+                Add New Card
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 10 : TABLE -->
+        <!-- ================================= -->
+
+        <section id="tableSection">
+
+            <h2>10. Table Manipulation</h2>
+
+            <table id="studentTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>Age</th>
+
+                        <th>Course</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Harsh</td>
+
+                        <td>20</td>
+
+                        <td>BSc IT</td>
+
+                        <td>
+                            <button class="deleteRow">
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>Rahul</td>
+
+                        <td>21</td>
+
+                        <td>BCA</td>
+
+                        <td>
+                            <button class="deleteRow">
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>Aman</td>
+
+                        <td>20</td>
+
+                        <td>BTech</td>
+
+                        <td>
+                            <button class="deleteRow">
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 11 : IMAGE -->
+        <!-- ================================= -->
+
+        <section id="imageSection">
+
+            <h2>11. Image Manipulation</h2>
+
+            <img
+                id="myImage"
+                src="https://via.placeholder.com/300"
+                alt="Practice Image"
+                width="300"
+            >
+
+            <br><br>
+
+            <button id="changeImage">
+                Change Image
+            </button>
+
+            <button id="hideImage">
+                Hide Image
+            </button>
+
+            <button id="showImage">
+                Show Image
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 12 : TEXTAREA -->
+        <!-- ================================= -->
+
+        <section id="textSection">
+
+            <h2>12. Textarea Manipulation</h2>
+
+            <textarea
+                id="messageInput"
+                rows="6"
+                placeholder="Write something..."
+            ></textarea>
+
+            <button id="showMessage">
+                Show Message
+            </button>
+
+            <p id="messageOutput"></p>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 13 : SELECT -->
+        <!-- ================================= -->
+
+        <section id="selectSection">
+
+            <h2>13. Select / Dropdown</h2>
+
+            <select id="courseSelect">
+
+                <option value="">
+                    Select Course
+                </option>
+
+                <option value="HTML">
+                    HTML
+                </option>
+
+                <option value="CSS">
+                    CSS
+                </option>
+
+                <option value="JavaScript">
+                    JavaScript
+                </option>
+
+                <option value="React">
+                    React
+                </option>
+
+                <option value="Node.js">
+                    Node.js
+                </option>
+
+            </select>
+
+
+            <p id="selectedCourse">
+                Selected course will appear here.
+            </p>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 14 : MOUSE EVENTS -->
+        <!-- ================================= -->
+
+        <section id="mouseSection">
+
+            <h2>14. Mouse Events</h2>
+
+            <div
+                id="mouseBox"
+                class="box"
+            >
+
+                Move your mouse over me.
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 15 : KEYBOARD EVENTS -->
+        <!-- ================================= -->
+
+        <section id="keyboardSection">
+
+            <h2>15. Keyboard Events</h2>
+
+            <input
+                type="text"
+                id="keyboardInput"
+                placeholder="Type something..."
+            >
+
+            <p id="keyOutput">
+                Key pressed:
+            </p>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 16 : SHOW / HIDE -->
+        <!-- ================================= -->
+
+        <section id="visibilitySection">
+
+            <h2>16. Show / Hide Elements</h2>
+
+            <div
+                id="hiddenBox"
+                class="box"
+            >
+
+                <h3>
+                    Secret Content
+                </h3>
+
+                <p>
+                    You can hide and show me.
+                </p>
+
+            </div>
+
+
+            <button id="hideBox">
+                Hide
+            </button>
+
+            <button id="showBox">
+                Show
+            </button>
+
+            <button id="toggleBox">
+                Toggle
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 17 : CREATE ELEMENT -->
+        <!-- ================================= -->
+
+        <section id="createSection">
+
+            <h2>17. Create Elements Dynamically</h2>
+
+            <button id="createParagraph">
+                Create Paragraph
+            </button>
+
+            <div id="dynamicContainer"></div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 18 : REMOVE ELEMENT -->
+        <!-- ================================= -->
+
+        <section id="removeSection">
+
+            <h2>18. Remove Elements</h2>
+
+            <div id="removeContainer">
+
+                <p id="removePara1">
+                    Paragraph 1
+                </p>
+
+                <p id="removePara2">
+                    Paragraph 2
+                </p>
+
+                <p id="removePara3">
+                    Paragraph 3
+                </p>
+
+            </div>
+
+
+            <button id="removePara">
+                Remove Paragraph 2
+            </button>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 19 : SEARCH -->
+        <!-- ================================= -->
+
+        <section id="searchSection">
+
+            <h2>19. Search / Filter</h2>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search technology..."
+            >
+
+
+            <ul id="technologyList">
+
+                <li>HTML</li>
+
+                <li>CSS</li>
+
+                <li>JavaScript</li>
+
+                <li>React</li>
+
+                <li>Node.js</li>
+
+                <li>MongoDB</li>
+
+                <li>Express.js</li>
+
+                <li>Git</li>
+
+                <li>GitHub</li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SECTION 20 : DOM INFORMATION -->
+        <!-- ================================= -->
+
+        <section id="infoSection">
+
+            <h2>20. DOM Information</h2>
+
+            <button id="showInfo">
+                Show DOM Information
+            </button>
+
+            <div id="domInfo"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer id="footer">
+
+        <p>
+            DOM Manipulation Practice
+        </p>
+
+        <p id="footerText">
+            Learn JavaScript by practicing.
+        </p>
+
+    </footer>
+
+
+    <!-- ================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ================================= -->
+
+    <script>
+
+        // ==========================================
+        // WRITE YOUR DOM JAVASCRIPT HERE
+        // ==========================================
+
+
+        // Example:
+
+        // const title = document.getElementById("mainTitle");
+
+        // title.textContent = "My DOM Website";
+
+
+    </script>
+
+</body>
+
+</html>
