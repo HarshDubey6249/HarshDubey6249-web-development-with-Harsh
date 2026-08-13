@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>harsj</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    <ul class="list">
+        <li>JavaScript</li>
+    </ul>
+</body>
+
+<script>
+
+    function addList(LanguageName){
+
+        const list1=document.createElement("li");
+        list1.innerText=`${LanguageName}`;
+
+        document.querySelector(".list").appendChild(list1);
+    }
+
+    addList("Python");
+    addList("cpp");
+
+    function addListOptimize(langName){
+         const list1=document.createElement("li");
+       li.appendChild(document.createTextNode(langName))
+
+        document.querySelector(".list").appendChild(list1);
+    }
+    
+    addList("goLang")
+</script>
+</html>
