@@ -1,0 +1,220 @@
+```html
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Defines the character encoding of the webpage -->
+  <meta charset="UTF-8" />
+
+  <!-- Makes the webpage responsive on different screen sizes -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Title displayed in the browser tab -->
+  <title>bind</title>
+</head>
+
+<body>
+
+  <!-- Button that we will select using JavaScript -->
+  <button>Click Me</button>
+
+
+  <script>
+
+    // ---------------------------------------------------------
+    // CLASS
+    // ---------------------------------------------------------
+    // React is a class.
+    // A class is a blueprint used to create objects.
+    //
+    // Here, the React class contains:
+    // 1. Properties  -> name, server
+    // 2. Method      -> handleClick()
+    // ---------------------------------------------------------
+
+    class React {
+
+      // -------------------------------------------------------
+      // CONSTRUCTOR
+      // -------------------------------------------------------
+      // The constructor() method is automatically called
+      // whenever we create an object using the "new" keyword.
+      //
+      // Example:
+      // const app = new React()
+      //
+      // When this line executes, constructor() runs automatically.
+      // -------------------------------------------------------
+
+      constructor() {
+
+        // "this" refers to the current object.
+        //
+        // Here, "this" represents the object created from
+        // the React class.
+        //
+        // We are creating a property called "name".
+
+        this.name = "React";
+
+
+        // Creating another property called "server".
+        //
+        // This value can later be accessed using:
+        // this.server
+
+        this.server = "localhost://3000";
+
+
+        // -----------------------------------------------------
+        // document.querySelector("button")
+        // -----------------------------------------------------
+        // document represents the current HTML document.
+        //
+        // querySelector() searches the HTML document and
+        // returns the FIRST element that matches the selector.
+        //
+        // "button" means:
+        // Find the first <button> element.
+        //
+        // So this:
+        //
+        // document.querySelector("button")
+        //
+        // selects:
+        //
+        // <button>Click Me</button>
+        // -----------------------------------------------------
+
+        document.querySelector("button")
+
+
+          // ---------------------------------------------------
+          // addEventListener()
+          // ---------------------------------------------------
+          // addEventListener() is used to listen for an event.
+          //
+          // Here we are listening for the "click" event.
+          //
+          // When the button is clicked, the function provided
+          // as the second argument will execute.
+          // ---------------------------------------------------
+
+          .addEventListener(
+            "click",
+
+            // -------------------------------------------------
+            // bind(this)
+            // -------------------------------------------------
+            // This is the most important part of this example.
+            //
+            // We want handleClick() to use the SAME "this"
+            // as our React object.
+            //
+            // If we simply wrote:
+            //
+            // this.handleClick
+            //
+            // JavaScript can change the value of "this" when
+            // the function is called as an event handler.
+            //
+            // bind(this) creates a NEW function where "this"
+            // is permanently connected to the current React object.
+            //
+            // Therefore, inside handleClick():
+            //
+            // this.server
+            //
+            // correctly refers to:
+            //
+            // "localhost://3000"
+            // -------------------------------------------------
+
+            this.handleClick.bind(this)
+          );
+
+      }
+
+
+      // -------------------------------------------------------
+      // METHOD
+      // -------------------------------------------------------
+      // This method will execute when the button is clicked.
+      // -------------------------------------------------------
+
+      handleClick() {
+
+        // Prints a message in the browser console.
+        console.log("Button clicked");
+
+
+        // "this" refers to the React object because we used:
+        //
+        // this.handleClick.bind(this)
+        //
+        // Therefore, this.server refers to:
+        //
+        // this.server = "localhost://3000"
+        //
+        // Output:
+        // localhost://3000
+
+        console.log(this.server);
+      }
+
+    }
+
+
+    // ---------------------------------------------------------
+    // OBJECT CREATION
+    // ---------------------------------------------------------
+    // "new React()" creates a new object from the React class.
+    //
+    // When this executes:
+    //
+    // 1. A new React object is created.
+    // 2. constructor() automatically runs.
+    // 3. name and server properties are created.
+    // 4. The button click event is registered.
+    // ---------------------------------------------------------
+
+    const app = new React();
+
+
+    // Now "app" is an object created from the React class.
+    //
+    // app.name
+    // -> "React"
+    //
+    // app.server
+    // -> "localhost://3000"
+    //
+    // app.handleClick()
+    // -> calls the handleClick method.
+
+
+
+
+
+
+
+
+
+
+
+//     this.handleClick
+//         ↓
+// Function passed as callback
+//         ↓
+// this may change
+//         ↓
+// .bind(this)
+//         ↓
+// Keep this = React object
+
+  </script>
+
+</body>
+
+</html>
+```
