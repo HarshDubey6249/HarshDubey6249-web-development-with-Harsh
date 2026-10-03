@@ -1,122 +1,160 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+
+import { useCallback, useEffect, useRef, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // useState: Stores the password length.
+  // Default password length is 8.
+  const [length, setLength] = useState(8);
+
+  // Stores whether numbers should be included.
+  // Initially, numbers are disabled.
+  const [numberAllowed, setNumberAllowed] = useState(false);
+
+  // Stores whether special characters should be included.
+  // Initially, special characters are disabled.
+  const [charAllowed, setCharAllowed] = useState(false);
+
+  // Stores the generated password.
+  const [password, setPassword] = useState("");
+
+  // useRef: Creates a reference to the password input.
+  // We will use it to select the password when copying.
+  const passwordRef = useRef(null);
+
+  // useCallback: Memorizes the passwordGenerator function.
+  // It recreates the function only when its dependencies change.
+  const passwordGenerator = useCallback(() => {
+
+    // Initially, the password is an empty string.
+    let pass = "";
+
+    // Default character set containing uppercase and lowercase letters.
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+    // If numberAllowed is true, add digits to the character set.
+    if (numberAllowed) str += "0123456789";
+
+    // If charAllowed is true, add special characters.
+    if (charAllowed) str += "!@#$%^&*()-_=+[]{}|;:',.<>?/`~";
+
+    // Loop runs according to the selected password length.
+    for (let i = 1; i <= length; i++) {
+
+      // Generates a random index between 0 and str.length - 1.
+      let char = Math.floor(Math.random() * str.length);
+
+      // Selects a random character and adds it to the password.
+      pass += str.charAt(char);
+    }
+
+    // Updates the password state with the generated password.
+    setPassword(pass);
+
+  }, [length, numberAllowed, charAllowed, setPassword]);
+
+  // useCallback: Memorizes the copyPassword function.
+  const copyPassword = useCallback(() => {
+
+    // Selects the complete password inside the input field.
+    passwordRef.current?.select();
+
+    // Copies the generated password to the clipboard.
+    window.navigator.clipboard.writeText(password);
+
+  }, [password]);
+
+  // useEffect: Automatically generates a new password
+  // whenever the length, number option, or character option changes.
+  useEffect(() => {
+
+    passwordGenerator();
+
+  }, [length, numberAllowed, charAllowed, passwordGenerator]);
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      {/* Main container for the password generator */}
+      <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 text-orange-500 bg-gray-800">
 
-      <div className="ticks"></div>
+        {/* Application heading */}
+        <h1 className="text-white text-center text-xl font-bold mb-3">
+          Password Generator
+        </h1>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {/* Password display and copy button */}
+        <div className="flex shadow rounded-lg overflow-hidden mb-4">
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+          {/* Displays the generated password */}
+          <input
+            type="text"
+            value={password}
+            className="outline-none w-full py-2 px-3 bg-amber-200 text-black"
+            placeholder="Password"
+            ref={passwordRef}
+            readOnly
+          />
+
+          {/* Copies password to clipboard when clicked */}
+          <button
+            onClick={copyPassword}
+            className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0"
+          >
+            Copy
+          </button>
+        </div>
+
+        {/* Password customization controls */}
+        <div className="flex text-sm gap-x-2">
+
+          {/* Password length slider */}
+          <div className="flex items-center gap-x-1">
+            <input
+              type="range"
+              min={8}
+              max={100}
+              value={length}
+              className="cursor-pointer"
+              onChange={(e) => {
+                // Converts the slider value from string to number.
+                setLength(Number(e.target.value));
+              }}
+            />
+            <label>Length: {length}</label>
+          </div>
+
+          {/* Numbers checkbox */}
+          <div className="flex items-center gap-x-1">
+            <input
+              type="checkbox"
+              checked={numberAllowed}
+              id="numberInput"
+              onChange={() => {
+                // Toggles number inclusion.
+                setNumberAllowed((prev) => !prev);
+              }}
+            />
+            <label htmlFor="numberInput">Numbers</label>
+          </div>
+
+          {/* Special characters checkbox */}
+          <div className="flex items-center gap-x-1">
+            <input
+              type="checkbox"
+              checked={charAllowed}
+              id="characterInput"
+              onChange={() => {
+                // Toggles special character inclusion.
+                setCharAllowed((prev) => !prev);
+              }}
+            />
+            <label htmlFor="characterInput">Characters</label>
+          </div>
+
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
