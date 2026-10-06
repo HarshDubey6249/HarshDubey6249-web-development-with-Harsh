@@ -14,7 +14,7 @@ import About from "./components/about/About.jsx";
 import Contact from "./components/contact_us/ContactUs.jsx";
 import User from "./components/User/User.jsx";
 
-import Github , { githubInfoLoader }  from "./components/gitHub/Github.jsx";
+import Github ,{ githubInfoLoader }  from "./components/gitHub/Github.jsx";
 //import Github, { githubInfoLoader } from './componentsGithubGithub.jsx'
 
 // const router = createBrowserRouter([
